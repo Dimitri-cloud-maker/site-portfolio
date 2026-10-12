@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimitri Djeuji — Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#080c14;
+  --bg2:#0d1421;
+  --bg3:#111a2e;
+  --accent:#3b82f6;
+  --accent2:#60a5fa;
+  --accent-glow:rgba(59,130,246,0.12);
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --border:rgba(59,130,246,0.18);
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 2.5rem;
+  background:rgba(8,12,20,0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-size:0.88rem;font-weight:500;color:var(--text)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 2.5rem 5rem;
+  border-bottom:1px solid var(--border);
+}
+.hero-label{font-size:0.75rem;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+h1{font-size:clamp(2.8rem,7vw,5.5rem);font-weight:600;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem}
+h1 .dim{color:var(--muted);font-weight:300}
+.hero-desc{font-size:0.95rem;color:var(--muted);max-width:480px;line-height:1.75;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:4rem}
+.btn{
+  font-size:0.78rem;font-family:'Inter',sans-serif;font-weight:500;
+  letter-spacing:0.02em;text-decoration:none;
+  padding:0.65rem 1.4rem;border-radius:6px;
+  transition:all .2s;cursor:pointer;display:inline-block;
+}
+.btn-fill{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn-fill:hover{background:var(--accent2);border-color:var(--accent2)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--muted)}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-val{font-size:1.6rem;font-weight:600;color:var(--accent2);display:block}
+.stat-label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+
+/* SECTION */
+.s{border-top:1px solid var(--border)}
+.s-inner{max-width:1100px;margin:0 auto;padding:5rem 2.5rem}
+.s-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2.5rem}
+.s-title{font-size:1.4rem;font-weight:600;letter-spacing:-0.01em}
+.s-num{font-size:0.72rem;color:var(--muted)}
+
+/* SKILLS */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:8px;overflow:hidden;
+}
+.skill-card{background:var(--bg2);padding:1.5rem;transition:background .2s}
+.skill-card:hover{background:var(--bg3)}
+.skill-cat{font-size:0.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.9rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-size:0.72rem;padding:0.25rem 0.65rem;background:var(--accent-glow);color:var(--accent2);border:1px solid rgba(59,130,246,0.2);border-radius:4px}
+
+/* PROJETS */
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.proj{background:var(--bg2);padding:2rem;display:flex;flex-direction:column;gap:0.75rem;transition:background .2s}
+.proj:hover{background:var(--bg3)}
+.proj-top{display:flex;justify-content:space-between}
+.proj-num{font-size:0.7rem;color:var(--muted)}
+.proj-title{font-size:1rem;font-weight:600}
+.proj-desc{font-size:0.83rem;color:var(--muted);line-height:1.65;flex:1}
+.proj-stack{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.5rem}
+.proj-tag{font-size:0.68rem;padding:0.2rem 0.55rem;background:var(--bg);color:var(--muted);border:1px solid var(--border);border-radius:4px}
+
+/* CV */
+.cv-grid{display:grid;grid-template-columns:240px 1fr;gap:4rem}
+.cv-block{margin-bottom:2rem}
+.cv-block h4{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.85rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+.cv-block p{font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:0.2rem}
+.cv-block p strong{color:var(--text);font-weight:500}
+.cv-block .tag{margin:0.2rem 0.2rem 0 0;display:inline-block}
+.cv-entry{padding:1.1rem 1.25rem;border-radius:6px;margin-bottom:0.6rem;border:1px solid var(--border);background:var(--bg2);transition:background .2s}
+.cv-entry:hover{background:var(--bg3)}
+.cv-entry-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.2rem;gap:1rem}
+.cv-entry-title{font-size:0.88rem;font-weight:500;color:var(--text)}
+.cv-entry-date{font-size:0.72rem;color:var(--accent2);white-space:nowrap;flex-shrink:0}
+.cv-entry-place{font-size:0.78rem;color:var(--muted);margin-bottom:0.35rem}
+.cv-entry p{font-size:0.8rem;color:var(--muted);line-height:1.6}
+.cv-entry ul{padding-left:1.1rem;margin-top:0.25rem}
+.cv-entry ul li{font-size:0.8rem;color:var(--muted);line-height:1.65;margin-bottom:0.2rem}
+.cv-dl-wrap{margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap}
+
+
+/* REALISATIONS */
+.real-intro{font-size:0.9rem;color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:2rem}
+.filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:500;padding:0.45rem 1rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
+.filter-btn:hover{color:var(--text);border-color:var(--muted)}
+.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.real-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+.real-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.75rem;display:flex;flex-direction:column;gap:0.7rem;transition:background .2s,border-color .2s}
+.real-card:hover{background:var(--bg3);border-color:rgba(59,130,246,0.4)}
+.real-card.hide{display:none}
+.real-top{display:flex;justify-content:space-between;align-items:center;gap:0.75rem}
+.real-kicker{font-size:0.7rem;color:var(--muted)}
+.real-badge{font-size:0.62rem;font-weight:600;letter-spacing:0.08em;padding:0.18rem 0.6rem;border-radius:4px;border:1px solid rgba(59,130,246,0.25);background:var(--accent-glow);color:var(--accent2)}
+.real-badge.stage{background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.25);color:#4ade80}
+.real-title{font-size:1rem;font-weight:600;line-height:1.3}
+.real-desc{font-size:0.83rem;color:var(--muted);line-height:1.65}
+
+/* VEILLE */
+.veille-intro{font-size:0.9rem;color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:2.5rem}
+.veille-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:1rem;transition:background .2s}
+.veille-card:hover{background:var(--bg3)}
+.veille-card-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.75rem;gap:1rem;flex-wrap:wrap}
+.veille-card-title{font-size:1rem;font-weight:600}
+.veille-badge{font-size:0.68rem;padding:0.2rem 0.65rem;background:var(--accent-glow);color:var(--accent2);border:1px solid rgba(59,130,246,0.2);border-radius:4px;white-space:nowrap}
+.veille-card p{font-size:0.83rem;color:var(--muted);line-height:1.65;margin-bottom:0.85rem}
+.veille-sub{font-size:0.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;margin-top:1rem}
+.veille-list{padding-left:1.1rem}
+.veille-list li{font-size:0.82rem;color:var(--muted);line-height:1.65;margin-bottom:0.3rem}
+.cve-row{display:flex;gap:0.75rem;margin-bottom:0.6rem;flex-wrap:wrap}
+.cve-tag{font-size:0.72rem;padding:0.25rem 0.75rem;background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:4px;font-weight:500}
+.sources-list{display:flex;flex-direction:column;gap:0.4rem;margin-top:0.5rem}
+.source-link{font-size:0.78rem;color:var(--accent2);text-decoration:none;transition:opacity .15s}
+.source-link:hover{opacity:0.75;text-decoration:underline}
+
+/* FICHE COMPÉTENCES */
+.fc-intro{font-size:0.9rem;color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:2.5rem}
+.fc-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px}
+.fc-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.fc-table th{background:var(--bg3);color:var(--accent2);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.75rem 1rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.fc-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top;line-height:1.55}
+.fc-table tr:last-child td{border-bottom:none}
+.fc-table tr:hover td{background:var(--bg3)}
+.fc-table .real{font-size:0.72rem;color:var(--accent2)}
+.fc-check{color:#4ade80;font-size:0.85rem}
+.fc-partial{color:#fbbf24;font-size:0.85rem}
+.fc-section-row td{background:var(--bg3);color:var(--accent);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 1rem;font-weight:600}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer p{font-size:0.75rem;color:var(--muted)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--text)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.r.on{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .projects-grid{grid-template-columns:1fr}
+  .cv-grid{grid-template-columns:1fr;gap:2rem}
+}
+@media(max-width:600px){
+  nav{padding:1rem 1.25rem}
+  .nav-links{display:none}
+  #hero{padding:7rem 1.25rem 3rem}
+  .s-inner{padding:3.5rem 1.25rem}
+  .hero-stats{gap:1.5rem}
+  footer{padding:1.5rem 1.25rem}
+}
+
+/* ============ ANIMATIONS & EFFETS ============ */
+:root{--mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s linear}
+#cursorGlow{position:fixed;top:0;left:0;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.09),transparent 65%);pointer-events:none;z-index:-1}
+nav{transition:padding .3s ease,background .3s ease}
+nav.scrolled{padding-top:.8rem;padding-bottom:.8rem;background:rgba(8,12,20,.96)}
+.nav-links a{position:relative;padding-bottom:3px}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--accent2);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--text)}
+.menu-btn{display:none;font-family:var(--mono);font-size:.75rem;color:var(--text);background:transparent;border:1px solid var(--border);border-radius:6px;padding:.4rem .8rem;cursor:pointer}
+
+/* Hero */
+#hero{position:relative;overflow:hidden;justify-content:center}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(59,130,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.05) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 75%)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28;animation:floaty 16s ease-in-out infinite}
+.blob.b1{width:380px;height:380px;background:#2563eb;top:8%;right:6%}
+.blob.b2{width:300px;height:300px;background:#3b82f6;bottom:4%;left:4%;animation-delay:-8s}
+.hero-inner{position:relative;z-index:1;max-width:1100px;width:100%;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3.5rem;align-items:center}
+.hero-btns{margin-bottom:0}
+.hero-stats{margin-top:3.5rem}
+.hero-role{font-family:var(--mono);font-size:.95rem;color:var(--accent2);margin-bottom:1.25rem;min-height:1.6em}
+.hero-role .pre{color:var(--muted);margin-right:.5rem}
+.caret{display:inline-block;width:7px;height:1.05em;background:var(--accent2);vertical-align:text-bottom;margin-left:2px;animation:blink 1s step-end infinite}
+.shimmer{background:linear-gradient(90deg,#64748b 0%,#e2e8f0 50%,#64748b 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite}
+.up{opacity:0;transform:translateY(22px);animation:up .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+
+/* Terminal */
+.term{background:rgba(13,20,33,.88);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.term-bar{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--border);background:var(--bg3)}
+.term-bar .d{width:9px;height:9px;border-radius:50%}
+.term-bar .d:nth-child(1){background:#f87171;opacity:.75}
+.term-bar .d:nth-child(2){background:#fbbf24;opacity:.75}
+.term-bar .d:nth-child(3){background:#4ade80;opacity:.75}
+.term-title{margin-left:.6rem;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+.term-body{padding:1.25rem 1.4rem;font-family:var(--mono);font-size:.78rem;line-height:1.95;min-height:16rem}
+.t-cmd{color:var(--text)}
+.prompt{color:#4ade80;margin-right:.5rem}
+.t-row{display:flex;gap:1rem;animation:rowin .4s ease both}
+.t-row .k{color:var(--muted);min-width:5.6rem}
+.t-row .v{color:var(--accent2)}
+
+/* Marquee */
+.marquee{overflow:hidden;border-bottom:1px solid var(--border);background:var(--bg2);padding:1.05rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marq 38s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:var(--mono);font-size:.76rem;color:var(--muted);padding-right:2.6rem;white-space:nowrap;display:inline-flex;align-items:center;gap:2.6rem}
+.marquee-track span::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.6}
+
+/* Titres de section */
+.s-title{position:relative}
+.s-title::after{content:'';position:absolute;left:0;bottom:-.55rem;height:2px;width:0;background:var(--accent);transition:width .8s ease .25s}
+.s-head.on .s-title::after{width:44px}
+
+/* Spotlight sur les cartes */
+.spot{position:relative}
+.spot::before{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(59,130,246,.15),transparent 62%);opacity:0;transition:opacity .3s}
+.spot:hover::before{opacity:1}
+
+/* Tags qui apparaissent */
+.skills-grid .tag{opacity:0;transform:scale(.7);transition:opacity .4s ease,transform .4s cubic-bezier(.2,.9,.3,1.4),background .2s;transition-delay:calc(var(--ti,0)*55ms + .25s)}
+.skills-grid.on .tag{opacity:1;transform:none}
+.skills-grid.done .tag{transition-delay:0s}
+.skills-grid.on .tag:hover{transform:translateY(-2px);background:rgba(59,130,246,.24)}
+
+/* Cartes réalisations en cascade */
+.stagger > *{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease,background .2s,border-color .2s}
+.stagger:not(.done) > *{transition-delay:calc(var(--i,0)*70ms)}
+.stagger.on > *{opacity:1;transform:none}
+.real-grid.on > .real-card:hover{transform:translateY(-4px)}
+.real-card.pop{animation:pop .4s ease}
+
+/* Boutons */
+.btn{position:relative;overflow:hidden}
+.btn-fill::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+.btn-fill:hover::after{animation:shine .8s ease}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.3)}
+.btn-ghost:hover{transform:translateY(-2px)}
+.btn{transition:all .2s ease}
+
+/* Timeline veille */
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative;margin-bottom:2.5rem;padding-top:1.9rem}
+.tl-line{position:absolute;top:5px;left:0;right:0;height:1px;background:var(--border);transform-origin:left;transform:scaleX(0);transition:transform 1.3s ease}
+.timeline.on .tl-line{transform:scaleX(1)}
+.tl-item{position:relative}
+.tl-item::before{content:'';position:absolute;top:-1.9rem;left:0;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);animation:ping 2.4s ease-out infinite}
+.tl-item:nth-child(3)::before{animation-delay:.6s}
+.tl-item:nth-child(4)::before{animation-delay:1.2s;border-color:#f87171}
+.tl-date{display:block;font-family:var(--mono);font-size:.72rem;color:var(--accent2);margin-bottom:.25rem}
+.tl-text{font-size:.82rem;color:var(--muted);line-height:1.55}
+
+/* Cases cochées de la fiche */
+.fc-check{display:inline-block}
+.fc-table-wrap .fc-check{opacity:0;transform:scale(0) rotate(-30deg);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.9,.3,1.5);transition-delay:calc(var(--i,0)*70ms + .3s)}
+.fc-table-wrap.on .fc-check{opacity:1;transform:none}
+
+/* Retour en haut */
+#toTop{position:fixed;right:1.5rem;bottom:1.5rem;width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--accent2);font-size:1rem;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:all .3s ease;z-index:90}
+#toTop.show{opacity:1;transform:none;pointer-events:auto}
+#toTop:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Keyframes */
+@keyframes up{to{opacity:1;transform:none}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-26px) scale(1.08)}}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes rowin{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+@keyframes marq{to{transform:translateX(-50%)}}
+@keyframes shine{to{left:130%}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(59,130,246,.55)}80%,100%{box-shadow:0 0 0 10px rgba(59,130,246,0)}}
+
+@media(hover:none){#cursorGlow{display:none}}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:2.5rem}
+  .timeline{grid-template-columns:1fr;gap:1.25rem;padding-top:0}
+  .tl-line{display:none}
+  .tl-item{padding-left:1.6rem}
+  .tl-item::before{top:5px}
+}
+@media(max-width:600px){
+  .menu-btn{display:inline-block}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:1.1rem;padding:1.25rem;background:rgba(8,12,20,.98);border-bottom:1px solid var(--border)}
+  .nav-links.open{display:flex}
+  .term-body{font-size:.72rem;min-height:15rem}
+  #toTop{right:1rem;bottom:1rem}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .r,.up,.stagger > *,.skills-grid .tag,.fc-table-wrap .fc-check{opacity:1!important;transform:none!important}
+  .tl-line{transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="cursorGlow"></div>
+
+<nav>
+  <span class="nav-logo">Dimitri Djeuji</span>
+  <ul class="nav-links">
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Réalisations</a></li>
+    <li><a href="#stage">Stage</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#fiche">Fiche</a></li>
+    <li><a href="#cv">CV</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">Menu +</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"><span class="blob b1"></span><span class="blob b2"></span></div>
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <p class="hero-label up" style="--d:0s">BTS SIO — Option SISR · 2ᵉ année</p>
+        <h1 class="up" style="--d:.1s">Dimitri<br><span class="dim shimmer">Djeuji</span></h1>
+        <p class="hero-role up" style="--d:.2s"><span class="pre">&gt;</span><span id="typed">Systèmes &amp; réseaux</span><span class="caret"></span></p>
+        <p class="hero-desc up" style="--d:.3s">Étudiant sérieux et motivé en BTS SIO option SISR au Lycée Parc de Vilgénis. À la recherche d'un stage en infrastructure, systèmes et réseaux.</p>
+        <div class="hero-btns up" style="--d:.4s">
+          <a href="#cv" class="btn btn-fill">Voir le CV</a>
+          <a href="CV_Dimitri_Djeuji.docx" class="btn btn-ghost" download="CV_Dimitri_Djeuji.docx">Télécharger le CV</a>
+        </div>
+      </div>
+      <div class="term up" style="--d:.35s" aria-label="Résumé de parcours">
+        <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="term-title">dimitri@portfolio:~</span></div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+    <div class="hero-stats up" style="--d:.55s">
+      <div><span class="stat-val" data-count="2027" data-from="2000">2027</span><span class="stat-label">Diplôme prévu</span></div>
+      <div><span class="stat-val">SISR</span><span class="stat-label">Option</span></div>
+      <div><span class="stat-val">B1</span><span class="stat-label">Anglais</span></div>
+      <div><span class="stat-val" data-count="4" data-from="0">4</span><span class="stat-label">Expériences</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+<span>Linux</span><span>Windows</span><span>Windows Server</span><span>Debian</span><span>Cisco Packet Tracer</span><span>VLAN</span><span>TCP/IP</span><span>SSH</span><span>GLPI</span><span>Zoho Desk</span><span>Python</span><span>SQL</span><span>NAS</span><span>Vidéosurveillance IP</span><span>Linux</span><span>Windows</span><span>Windows Server</span><span>Debian</span><span>Cisco Packet Tracer</span><span>VLAN</span><span>TCP/IP</span><span>SSH</span><span>GLPI</span><span>Zoho Desk</span><span>Python</span><span>SQL</span><span>NAS</span><span>Vidéosurveillance IP</span>
+</div></div>
+
+<!-- COMPÉTENCES -->
+<section class="s" id="competences">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Compétences</h2>
+      <span class="s-num">01</span>
+    </div>
+    <div class="skills-grid r">
+      <div class="skill-card">
+        <div class="skill-cat">Systèmes</div>
+        <div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Windows Server</span><span class="tag">Debian</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Réseaux & Sécurité</div>
+        <div class="skill-tags"><span class="tag">TCP/IP</span><span class="tag">VLAN</span><span class="tag">DNS/DHCP</span><span class="tag">NAS</span><span class="tag">Vidéosurveillance</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Langages</div>
+        <div class="skill-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">HTML</span><span class="tag">Bash</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Outils</div>
+        <div class="skill-tags"><span class="tag">GLPI</span><span class="tag">Zoho Desk</span><span class="tag">Active Directory</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Maintenance</div>
+        <div class="skill-tags"><span class="tag">Réparation PC</span><span class="tag">Remplacement HDD</span><span class="tag">BIOS</span><span class="tag">USB bootable</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Langues & Divers</div>
+        <div class="skill-tags"><span class="tag">Anglais B1</span><span class="tag">Français natif</span><span class="tag">Permis B</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section class="s" id="projets">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Ce que j’ai mis en pratique</h2>
+      <span class="s-num">02</span>
+    </div>
+    <p class="real-intro r">Des travaux de stage et des ateliers professionnels (AP) réalisés en classe. Chaque fiche présente le besoin, les étapes et les compétences travaillées.</p>
+    <div class="filters r" id="filters">
+      <button class="filter-btn active" data-filter="all">Tous les projets</button>
+      <button class="filter-btn" data-filter="stage">En stage</button>
+      <button class="filter-btn" data-filter="systemes">Systèmes</button>
+      <button class="filter-btn" data-filter="reseaux">Réseaux</button>
+      <button class="filter-btn" data-filter="ap">AP de classe</button>
+    </div>
+    <div class="real-grid stagger r" id="realGrid">
+      <article class="real-card" data-cat="stage systemes">
+        <div class="real-top"><span class="real-kicker">01 / Stage · Déploiement</span><span class="real-badge stage">STAGE</span></div>
+        <div class="real-title">Un serveur Nginx dans Docker</div>
+        <p class="real-desc">Installer un serveur web dans un espace de test séparé, ouvrir le port 8080 et vérifier la page.</p>
+      </article>
+      <article class="real-card" data-cat="systemes">
+        <div class="real-top"><span class="real-kicker">02 / Projet de formation · Systèmes</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Une machine Debian et un service d’IA</div>
+        <p class="real-desc">Créer un ordinateur virtuel sous Debian et préparer l’installation d’un service d’intelligence artificielle.</p>
+      </article>
+      <article class="real-card" data-cat="systemes reseaux">
+        <div class="real-top"><span class="real-kicker">03 / Projet de formation · Accès distant</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Gérer une machine à distance avec SSH</div>
+        <p class="real-desc">Relier un poste Windows à une machine Debian et autoriser les connexions nécessaires.</p>
+      </article>
+      <article class="real-card" data-cat="reseaux ap">
+        <div class="real-top"><span class="real-kicker">04 / AP de classe · Réseaux</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Séparer un réseau avec Cisco Packet Tracer</div>
+        <p class="real-desc">Choisir les adresses IP, créer des groupes dans le réseau et tester leurs communications.</p>
+      </article>
+      <article class="real-card" data-cat="stage reseaux">
+        <div class="real-top"><span class="real-kicker">05 / Stage · Diagnostic</span><span class="real-badge stage">STAGE</span></div>
+        <div class="real-title">Contrôler la rapidité et la sécurité d’un site</div>
+        <p class="real-desc">Vérifier le nom de domaine, le temps de réponse et la protection des échanges HTTPS.</p>
+      </article>
+      <article class="real-card" data-cat="stage reseaux">
+        <div class="real-top"><span class="real-kicker">06 / Stage · Cybersécurité</span><span class="real-badge stage">STAGE</span></div>
+        <div class="real-title">Repérer les protections web manquantes</div>
+        <p class="real-desc">Vérifier les règles de sécurité envoyées au navigateur et proposer des corrections.</p>
+      </article>
+      <article class="real-card" data-cat="systemes ap">
+        <div class="real-top"><span class="real-kicker">07 / AP de classe · Windows</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Comptes, groupes et partages Windows</div>
+        <p class="real-desc">Donner à chaque utilisateur les bons droits sur les dossiers partagés.</p>
+      </article>
+      <article class="real-card" data-cat="systemes ap">
+        <div class="real-top"><span class="real-kicker">08 / AP de classe · Linux</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Partager un espace de travail sous Linux</div>
+        <p class="real-desc">Permettre à une équipe de modifier des fichiers tout en conservant les bons droits.</p>
+      </article>
+      <article class="real-card" data-cat="systemes reseaux ap">
+        <div class="real-top"><span class="real-kicker">09 / AP de classe · Infrastructure</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Créer un réseau virtuel et travailler sur les sauvegardes</div>
+        <p class="real-desc">Relier plusieurs machines virtuelles, sauvegarder les fichiers et rechercher les pannes réseau.</p>
+      </article>
+      <article class="real-card" data-cat="ap">
+        <div class="real-top"><span class="real-kicker">10 / AP de classe · Services web</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Créer des pages web reliées à des données</div>
+        <p class="real-desc">Des pages HTML / CSS, un formulaire PHP et une application Python qui interroge une base de données.</p>
+      </article>
+      <article class="real-card" data-cat="ap">
+        <div class="real-top"><span class="real-kicker">11 / AP de classe · Gestion de parc</span><span class="real-badge">FORMATION</span></div>
+        <div class="real-title">Proposer une configuration adaptée</div>
+        <p class="real-desc">Choisir un ordinateur selon le travail à effectuer et expliquer son prix.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE -->
+<section class="s" id="stage">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Stage — Oliphant</h2>
+      <span class="s-num">03</span>
+    </div>
+    <p class="real-intro r">Stage de 1ʳᵉ année de BTS SIO SISR (1 mois) chez Oliphant, imprimerie et reconditionnement informatique à Bures-sur-Yvette.</p>
+    <div class="projects-grid r">
+      <div class="proj">
+        <div class="proj-top"><span class="proj-num">01</span></div>
+        <div class="proj-title">Configuration NAS &amp; sécurité Linux</div>
+        <p class="proj-desc">Mise en service et configuration d'un NAS Linux et d'un boîtier de sécurité sous Linux embarqué lors du stage chez Oliphant.</p>
+        <div class="proj-stack"><span class="proj-tag">Linux</span><span class="proj-tag">NAS</span><span class="proj-tag">Réseau</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-top"><span class="proj-num">02</span></div>
+        <div class="proj-title">Vidéosurveillance IP</div>
+        <p class="proj-desc">Installation, connexion et configuration de caméras de vidéosurveillance dans un environnement professionnel.</p>
+        <div class="proj-stack"><span class="proj-tag">Caméras IP</span><span class="proj-tag">Réseau</span><span class="proj-tag">Configuration</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-top"><span class="proj-num">03</span></div>
+        <div class="proj-title">Maintenance informatique</div>
+        <p class="proj-desc">Réparation de postes : remplacement de disque dur, vérification du BIOS, création de clé USB bootable, installation de Windows.</p>
+        <div class="proj-stack"><span class="proj-tag">Hardware</span><span class="proj-tag">BIOS</span><span class="proj-tag">Windows</span></div>
+      </div>
+      <div class="proj">
+        <div class="proj-top"><span class="proj-num">04</span></div>
+        <div class="proj-title">Base de données SQL</div>
+        <p class="proj-desc">Conception d'une BDD relationnelle avec modélisation Merise, création des tables et requêtes de jointure complexes.</p>
+        <div class="proj-stack"><span class="proj-tag">SQL</span><span class="proj-tag">MySQL</span><span class="proj-tag">Merise</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VEILLE TECHNOLOGIQUE -->
+<section class="s" id="veille">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Veille technologique</h2>
+      <span class="s-num">04</span>
+    </div>
+    <p class="veille-intro r">Comment protéger les équipements réseau Cisco, notamment les pare-feux et les accès VPN, contre l'exploitation de vulnérabilités ? Cette veille étudie des failles signalées en 2025 sur des équipements Cisco ASA et Firepower Threat Defense (FTD).</p>
+
+    <div class="timeline r">
+      <div class="tl-line"></div>
+      <div class="tl-item"><span class="tl-date">Mars 2025</span><span class="tl-text">ANSSI · Panorama de la cybermenace 2024</span></div>
+      <div class="tl-item"><span class="tl-date">Juin 2025</span><span class="tl-text">Cisco · Zero Trust Network Access</span></div>
+      <div class="tl-item"><span class="tl-date">25 septembre 2025</span><span class="tl-text">CVE-2025-20362 et CVE-2025-20333 · Cisco ASA / FTD</span></div>
+    </div>
+
+    <div class="veille-card r">
+      <div class="veille-card-head">
+        <span class="veille-card-title">Contexte — Menaces sur les équipements de bordure</span>
+        <span class="veille-badge">ANSSI · Mars 2025</span>
+      </div>
+      <p>Dans son panorama de la cybermenace 2024, l'ANSSI indique que plus de la moitié de ses opérations de cyberdéfense ayant nécessité un engagement important avaient pour origine l'exploitation de vulnérabilités sur des équipements de sécurité en bordure des systèmes d'information (pare-feux, passerelles VPN). Un équipement placé à la frontière du réseau contrôle les échanges entre Internet et le réseau interne — s'il est compromis, un attaquant peut contourner les protections et accéder au réseau interne.</p>
+    </div>
+
+    <div class="veille-card r">
+      <div class="veille-card-head">
+        <span class="veille-card-title">Vulnérabilités Cisco ASA et FTD — CVE 2025</span>
+        <span class="veille-badge">CERT-FR · 25 sept. 2025</span>
+      </div>
+      <p>Le 25 septembre 2025, Cisco a publié des avis de sécurité concernant le serveur VPN Web de ses équipements ASA et Firepower Threat Defense (FTD). Le CERT-FR a rapporté deux vulnérabilités critiques exploitées activement :</p>
+      <div class="cve-row">
+        <span class="cve-tag">CVE-2025-20362</span>
+        <span style="font-size:0.82rem;color:var(--muted);align-self:center">Contournement de l'authentification → accès à des ressources protégées sans identifiants</span>
+      </div>
+      <div class="cve-row">
+        <span class="cve-tag">CVE-2025-20333</span>
+        <span style="font-size:0.82rem;color:var(--muted);align-self:center">Exécution de code à distance par un utilisateur déjà authentifié</span>
+      </div>
+      <p style="margin-top:0.75rem">Ces deux failles peuvent être chaînées pour prendre le contrôle total d'un équipement sans authentification. Cisco a confirmé une exploitation active et des codes d'exploitation publics ont été publiés.</p>
+    </div>
+
+    <div class="veille-card r">
+      <div class="veille-card-head">
+        <span class="veille-card-title">Mesures de protection — Rôle de l'administrateur SISR</span>
+        <span class="veille-badge">Recommandations CERT-FR</span>
+      </div>
+      <p>À partir des recommandations du CERT-FR, un administrateur SISR peut adopter les pratiques suivantes :</p>
+      <ul class="veille-list">
+        <li>Tenir à jour l'inventaire du matériel et des versions des pare-feux, routeurs et équipements VPN</li>
+        <li>Surveiller les avis Cisco et les alertes CERT-FR pour identifier les équipements concernés</li>
+        <li>Appliquer les correctifs de sécurité selon une procédure maîtrisée (sauvegarde, planification, mise à jour, vérification)</li>
+        <li>Réduire l'exposition des interfaces d'administration et des services VPN à Internet</li>
+        <li>Renforcer l'authentification avec une authentification multifacteur (MFA) pour les accès distants</li>
+        <li>Centraliser et surveiller les journaux pour repérer des connexions inhabituelles</li>
+        <li>Segmenter le réseau pour limiter les déplacements d'un attaquant en cas de compromission</li>
+        <li>Préparer une procédure de réaction à incident : isoler l'équipement, conserver les journaux, signaler l'incident</li>
+      </ul>
+    </div>
+
+    <div class="veille-card r">
+      <div class="veille-card-head">
+        <span class="veille-card-title">Approche Zero Trust — Évolutions Cisco 2025</span>
+        <span class="veille-badge">Cisco · Juin 2025</span>
+      </div>
+      <p>Cisco a présenté des évolutions autour du Zero Trust Network Access (ZTNA) : principe de vérifier chaque accès en fonction de l'utilisateur, de l'appareil et de la ressource demandée, plutôt que de faire confiance automatiquement à une connexion venant du réseau interne. Les pare-feux Cisco Secure Firewall s'appuient sur Talos, Snort 3 et des fonctions d'analyse pour détecter et bloquer certaines menaces. Ces outils ne remplacent pas les tâches fondamentales : maintenir les équipements à jour, limiter les accès et surveiller les journaux.</p>
+      <div class="veille-sub">Sources</div>
+      <div class="sources-list">
+        <a class="source-link" href="https://www.ssi.gouv.fr" target="_blank">ANSSI — Panorama de la cybermenace 2024</a>
+        <a class="source-link" href="https://www.cert.ssi.gouv.fr" target="_blank">CERT-FR — Vulnérabilités dans Cisco ASA et FTD (sept. 2025)</a>
+        <a class="source-link" href="https://www.cisco.com/c/fr_fr/products/security/firewalls/index.html" target="_blank">Cisco — Présentation de Secure Firewall</a>
+        <a class="source-link" href="https://www.cisco.com" target="_blank">Cisco — Sécurité réseau et Zero Trust (juin 2025)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FICHE DE COMPÉTENCES -->
+<section class="s" id="fiche">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Fiche de compétences</h2>
+      <span class="s-num">05</span>
+    </div>
+    <p class="fc-intro r">Tableau de synthèse des réalisations professionnelles — BTS SIO SISR, Session 2026. Les compétences sont associées aux réalisations effectuées en formation et en milieu professionnel.</p>
+    <div class="fc-table-wrap r">
+      <table class="fc-table">
+        <thead>
+          <tr>
+            <th style="min-width:220px">Réalisation</th>
+            <th>Gérer le patrimoine informatique</th>
+            <th>Répondre aux incidents</th>
+            <th>Présence en ligne</th>
+            <th>Travailler en mode projet</th>
+            <th>Mettre à disposition un service</th>
+            <th>Organiser son développement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="fc-section-row"><td colspan="7">Réalisations en cours de formation</td></tr>
+          <tr>
+            <td>APS2 — Filtrage réseau</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="fc-section-row"><td colspan="7">Réalisations en milieu professionnel — 1ʳᵉ année</td></tr>
+          <tr>
+            <td>Réparation hardware d'ordinateur</td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Installation et config. Windows 7, 10 et 11</td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Installation NAS sous Linux avec caméra</td>
+            <td><span class="fc-check">✓</span></td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Vérification du fonctionnement d'un PC</td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Installation d'un scanner avec drivers</td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Restauration de Mini-PC</td>
+            <td><span class="fc-check">✓</span></td>
+            <td><span class="fc-check">✓</span></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="fc-section-row"><td colspan="7">Réalisations en milieu professionnel — 2ᵉ année</td></tr>
+          <tr>
+            <td colspan="7" style="color:var(--muted);font-style:italic;font-size:0.78rem">En cours — stage 2ᵉ année à venir</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section class="s" id="cv">
+  <div class="s-inner">
+    <div class="s-head r">
+      <h2 class="s-title">Curriculum Vitae</h2>
+      <span class="s-num">06</span>
+    </div>
+    <div class="cv-grid r">
+      <aside>
+        <div class="cv-block">
+          <h4>Contact</h4>
+          <p>djeujidimitri@gmail.com</p>
+          <p>07 67 32 11 43</p>
+          <p>Massy, 91300</p>
+        </div>
+        <div class="cv-block">
+          <h4>Langues</h4>
+          <span class="tag">Français (natif)</span>
+          <span class="tag" style="margin-top:0.4rem;display:inline-block">Anglais B1</span>
+        </div>
+        <div class="cv-block">
+          <h4>Qualités</h4>
+          <span class="tag">Sérieux</span>
+          <span class="tag">Motivé</span>
+          <span class="tag">Autonome</span>
+          <span class="tag">Esprit d'équipe</span>
+        </div>
+        <div class="cv-block">
+          <h4>Centres d'intérêt</h4>
+          <span class="tag">Basketball</span>
+          <span class="tag">Football</span>
+          <span class="tag">Formule 1</span>
+          <span class="tag">Informatique</span>
+        </div>
+      </aside>
+
+      <div>
+        <div class="cv-block">
+          <h4>Formation</h4>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">BTS SIO — Option SISR</span>
+              <span class="cv-entry-date">2ᵉ année en cours</span>
+            </div>
+            <div class="cv-entry-place">Lycée Parc de Vilgénis, Massy (91)</div>
+            <p>Administration systèmes et réseaux, bases de données SQL, développement orienté objet.</p>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">Baccalauréat Général — NSI & SES</span>
+              <span class="cv-entry-date">2024</span>
+            </div>
+            <div class="cv-entry-place">Lycée Parc de Vilgénis, Massy (91)</div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <h4>Expérience professionnelle</h4>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">Agent de logistique</span>
+              <span class="cv-entry-date">Depuis oct. 2025</span>
+            </div>
+            <div class="cv-entry-place">Mairie de Massy</div>
+            <ul><li>Participation aux activités logistiques de la collectivité</li></ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">Agent d'accueil</span>
+              <span class="cv-entry-date">Juil. – Août 2026</span>
+            </div>
+            <div class="cv-entry-place">Gare de Porte d'Orléans</div>
+            <ul>
+              <li>Accueil et orientation des voyageurs</li>
+              <li>Aide à la prise des transports adaptés</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">Stagiaire technicien informatique</span>
+              <span class="cv-entry-date">Stage 1ʳᵉ année BTS (1 mois)</span>
+            </div>
+            <div class="cv-entry-place">Oliphant – Bures-sur-Yvette</div>
+            <ul>
+              <li>Mise en service d'un NAS Linux et d'un boîtier de sécurité embarqué</li>
+              <li>Installation et configuration de caméras de vidéosurveillance</li>
+              <li>Réparation de postes : remplacement HDD, vérification BIOS</li>
+              <li>Création d'une clé USB bootable et installation de Windows 7</li>
+            </ul>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">Animateur périscolaire</span>
+              <span class="cv-entry-date">Mars – Juil. 2025</span>
+            </div>
+            <div class="cv-entry-place">École primaire Descartes</div>
+            <ul><li>Encadrement d'enfants sur le temps méridien</li></ul>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <h4>Certification</h4>
+          <div class="cv-entry">
+            <div class="cv-entry-top">
+              <span class="cv-entry-title">SecNum Académie — ANSSI</span>
+              <span class="cv-entry-date">Obtenue</span>
+            </div>
+            <p>Formation nationale en cybersécurité : bonnes pratiques, sécurité des systèmes d'information et gestion des risques numériques.</p>
+          </div>
+        </div>
+
+        <div class="cv-dl-wrap">
+          <a href="CV_Dimitri_Djeuji.docx" class="btn btn-fill" download="CV_Dimitri_Djeuji.docx">⬇ Télécharger le CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button id="toTop" aria-label="Retour en haut">↑</button>
+
+<footer>
+  <p>© 2026 Dimitri Djeuji — BTS SIO SISR</p>
+  <div class="footer-links">
+    <a href="mailto:djeujidimitri@gmail.com">djeujidimitri@gmail.com</a>
+    <a href="tel:0767321143">07 67 32 11 43</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function $(q,c){return (c||document).querySelector(q)}
+function $$(q,c){return Array.prototype.slice.call((c||document).querySelectorAll(q))}
+
+/* index pour les animations en cascade */
+$$('.stagger').forEach(function(g){Array.prototype.slice.call(g.children).forEach(function(el,i){el.style.setProperty('--i',i)})});
+$$('.fc-check').forEach(function(el,i){el.style.setProperty('--i',i)});
+$$('.skills-grid .skill-card').forEach(function(card,ci){$$('.tag',card).forEach(function(t,i){t.style.setProperty('--ti',ci*2+i)})});
+
+/* effet de lumière qui suit la souris sur les cartes */
+$$('.skill-card,.real-card,.proj,.veille-card,.cv-entry').forEach(function(c){
+  c.classList.add('spot');
+  c.addEventListener('mousemove',function(e){
+    var r=c.getBoundingClientRect();
+    c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    c.style.setProperty('--my',(e.clientY-r.top)+'px');
+  });
+});
+
+/* apparition au scroll */
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(x){
+      if(x.isIntersecting){
+        var t=x.target; t.classList.add('on');
+        setTimeout(function(){t.classList.add('done')},1700);
+        io.unobserve(t);
+      }
+    });
+  },{threshold:0.08});
+  $$('.r').forEach(function(el){io.observe(el)});
+}else{$$('.r').forEach(function(el){el.classList.add('on','done')})}
+
+/* barre de progression, nav, retour en haut */
+var nav=$('nav'), links=$$('.nav-links a'), secs=links.map(function(a){return $(a.getAttribute('href'))});
+var bar=$('#progress'), top=$('#toTop');
+function onScroll(){
+  var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+  bar.style.width=(h>0?y/h*100:0)+'%';
+  nav.classList.toggle('scrolled',y>20);
+  top.classList.toggle('show',y>600);
+  var cur=-1;
+  secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=window.innerHeight*0.35)cur=i});
+  links.forEach(function(a,i){a.classList.toggle('active',i===cur)});
+}
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+top.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+/* menu mobile */
+var menuBtn=$('#menuBtn'), menu=$('.nav-links');
+menuBtn.addEventListener('click',function(){
+  var open=menu.classList.toggle('open');
+  menuBtn.textContent=open?'Fermer ×':'Menu +';
+});
+links.forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');menuBtn.textContent='Menu +'})});
+
+/* lueur qui suit le curseur */
+var glow=$('#cursorGlow');
+if(glow&&!reduce&&window.matchMedia('(hover:hover)').matches){
+  var gx=window.innerWidth/2, gy=window.innerHeight/2, tx=gx, ty=gy;
+  window.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY});
+  (function loop(){
+    gx+=(tx-gx)*0.08; gy+=(ty-gy)*0.08;
+    glow.style.transform='translate('+(gx-250)+'px,'+(gy-250)+'px)';
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* texte qui s'écrit dans le hero */
+var roles=['Systèmes & réseaux','Support informatique','Administration Linux & Windows','Cybersécurité'];
+var typed=$('#typed');
+if(!reduce){
+  var ri=0,ci=0,del=false;
+  (function tick(){
+    var w=roles[ri];
+    if(!del){ci++;typed.textContent=w.slice(0,ci);if(ci===w.length){del=true;return setTimeout(tick,1700)}}
+    else{ci--;typed.textContent=w.slice(0,ci);if(ci===0){del=false;ri=(ri+1)%roles.length}}
+    setTimeout(tick,del?35:70);
+  })();
+}
+
+/* terminal */
+var tb=$('#termBody');
+var rows=[['formation','BTS SIO / SISR'],['lycée','Parc de Vilgénis'],['systèmes','Windows · Linux'],['réseaux','IPv4 · VLAN · SSH'],['stage','Oliphant — NAS, caméras IP'],['certif','SecNum Académie · ANSSI']];
+function addRow(r){var d=document.createElement('div');d.className='t-row';d.innerHTML='<span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span>';tb.appendChild(d)}
+function addPrompt(){var d=document.createElement('div');d.className='t-cmd';d.innerHTML='<span class="prompt">$</span><span class="caret"></span>';tb.appendChild(d)}
+if(reduce){
+  var c=document.createElement('div');c.className='t-cmd';c.innerHTML='<span class="prompt">$</span>cat parcours.txt';tb.appendChild(c);
+  rows.forEach(addRow); addPrompt();
+}else{
+  setTimeout(function(){
+    var cmd=document.createElement('div');cmd.className='t-cmd';
+    cmd.innerHTML='<span class="prompt">$</span><span class="txt"></span><span class="caret"></span>';
+    tb.appendChild(cmd);
+    var txt='cat parcours.txt', i=0, span=$('.txt',cmd);
+    var iv=setInterval(function(){
+      i++;span.textContent=txt.slice(0,i);
+      if(i>=txt.length){
+        clearInterval(iv);$('.caret',cmd).remove();
+        (function next(k){
+          if(k>=rows.length){addPrompt();return}
+          addRow(rows[k]);setTimeout(function(){next(k+1)},280);
+        })(0);
+      }
+    },65);
+  },900);
+}
+
+/* compteurs */
+$$('[data-count]').forEach(function(el){
+  var to=+el.dataset.count, from=+(el.dataset.from||0);
+  if(reduce)return;
+  el.textContent=from;
+  setTimeout(function(){
+    var t0=null,dur=1400;
+    function step(t){
+      if(!t0)t0=t;
+      var p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(from+(to-from)*e);
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  },700);
+});
+
+/* filtres des réalisations */
+$('#filters').addEventListener('click',function(e){
+  var b=e.target.closest('.filter-btn'); if(!b)return;
+  $$('.filter-btn').forEach(function(x){x.classList.remove('active')});
+  b.classList.add('active');
+  var f=b.dataset.filter;
+  $$('#realGrid .real-card').forEach(function(c){
+    var show=f==='all'||c.dataset.cat.split(' ').indexOf(f)!==-1;
+    c.classList.toggle('hide',!show);
+    c.classList.remove('pop');
+    if(show){void c.offsetWidth;c.classList.add('pop')}
+  });
+});
+})();
+</script>
+</body>
+</html>
